@@ -1,0 +1,14 @@
+baseURL = 'jerrynyoike.github.io'
+languageCode = 'en-us'
+title = "Jerry`s Blog"
+theme = 'paper'
+
+[params]
+github = 'JerryNyoike'
+
+# home page
+name = 'Jerry Nyoike'
+bio = 'Trying to learn as much as I can about Computer Software'
+
+disableHLJS = true
+monoDarkIcon = true
