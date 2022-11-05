@@ -1,4 +1,4 @@
-baseURL = 'jerrynyoike.github.io'
+baseURL = 'https://jerrynyoike.github.io'
 languageCode = 'en-us'
 title = "Jerry`s Blog"
 theme = 'paper'
