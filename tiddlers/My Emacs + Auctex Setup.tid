@@ -1,0 +1,20 @@
+created: 20230927011742923
+modified: 20230927014926823
+tags: draft emacs
+title: My Emacs + Auctex Setup
+type: text/vnd.tiddlywiki
+
+Lately, I have found myself working with LaTeX often. Previously, I always resorted to using Overleaf or some other tool to edit my .tex files. I am looking to move my workflow to be more Emacs-centric. I made a few edits to my emacs configuration to make it easier to work with the files.
+
+The most immediate thing I was looking was customizations to make writing TeX files easier. The AUCTeX environment is great for that! First up, was to set up electric mode to make it easier to enter math mode. 
+
+
+```
+(add-hook 'LaTeX-mode-hook 
+          (lambda () (set (make-local-variable 'TeX-electric-math) (cons "\\(" "\\)")))))
+```
+
+This turns on electric math mode, so that when you type `$` emacs writes the inline math mode delimiters `\(\)` and places the cursor inside the delimiters.
+
+# insert short video showing how it works
+# continue explaining the rest of the auctex set up
