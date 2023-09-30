@@ -1,0 +1,85 @@
+created: 20230927011742923
+modified: 20230930034823467
+tags: emacs release
+title: My minimal Emacs + Auctex Setup
+type: text/vnd.tiddlywiki
+
+Lately, I have found myself working with LaTeX often. Previously, I always resorted to using Overleaf or some other tool to edit my .tex files. I am looking to move my workflow to be more Emacs-centric. I made a few edits to my emacs configuration to make it easier to work with the files.
+
+!! Electric Mode
+The most immediate thing I was looking at was customizations to make writing TeX files easier. The AUCTeX environment is great for that! First up, was to set up electric mode to make it easier to enter math mode. 
+
+```
+(add-hook 'LaTeX-mode-hook 
+  (lambda 
+    ()
+    (set 
+      (make-local-variable 'TeX-electric-math) 
+      (cons "\\(" "\\)")))))
+```
+
+This turns on electric math mode, so that when you type `$` emacs writes the inline math mode delimiters `\(\)` and places the cursor inside the delimiters.
+
+Other than electric math mode, I also added support for electric mode for square brackets, curly brackets and regular brackets. The behaviour whenever any of these braces is typed is similar to electric math mode.
+
+```
+(add-hook 'LaTeX-mode-hook
+  (lambda 
+    ()
+    (set 
+      (make-local-variable 'LaTeX-electric-left-right-brace) 
+       t)))
+```
+
+In case you want to type in just the opening bracket while `LaTeX-electric-right-left-braces` is on, use the keybinding `C-q` before typing in the brace.
+
+The last electric autocompletion, I chose to take advantage of was when typing superscripts and subscripts in math mode. By setting `TeX-electric-sub-and-superscript` to true, whenever I type in `^` or `_` in math mode, AUCTeX adds curly braces automatically saving me a few extra keystrokes.
+
+```
+(add-hook 'LaTeX-mode-hook
+  (lambda 
+    () (set 
+          (make-local-variable TeX-electric-sub-and-superscript) t)))
+```
+
+{{braces.gif}}
+
+!! Compiling with LaTeX and Live Preview on Save
+
+AUCTeX allows you to run processing commands from within emacs. I am a fan of using `TeX-command-master` (which is bound to `C-c C-c`). This command prompts you to enter which LaTeX command you want to run on the current file. If the file was recently edited, the command `LaTeX` will be highlighted by default and this would compile your TeX file to produce a pdf. If you recently compiled the TeX file from within Emacs, the `View` command will be highlighted. If selected, `View` opens the output using your default system viewer for the file. 
+
+Naturally, I wanted this to be Emacs ever since I found out it's possible to view pdfs within Emacs (seriously what can't Emacs do!!).  In true Emacs, fashion it was possible to change AUCTeX defaults for which program to use to view the output.
+
+AUCTeX provides a variable 'TeX-view-program-list which is a list of programs to use to open output from LaTeX. Using `emacsclient` I was able to change which program should open my pdf files.
+
+```
+(add-hook 'LaTeX-mode-hook
+  (lambda ()
+    (set 
+      (make-local-variable 'TeX-program-view-list)
+      (cons '("eclient" "emacsclient -n -e '(find-file-other-window \"%o\")' -e '(doc-view-fit-window-to-page)' -e '(doc-view-last-page)' -e '(other-window 1)') '()))))
+```
+
+Let's break the value stored in `'TeX-program-view-list` down. `cons` means the value is a list. Each element of the list is a list of 2 strings. The first string represents the human readable name of the viewer and the second string is the command to run to open the viewer.
+
+To make Emacs available as one of the viewers, we need to edit another variable `'TeX-view-program-selection`. This variable also holds a list of lists representing the kind of output and the viewer to use for that output. The goal here is to have `eclient` that I defined in the previous step show up in the options for viewing pdf output. This is achieved with the following:
+
+```
+(add-hook 'LaTeX-mode-hook
+  (lambda 
+    ()
+    (set (make-local-variable 'TeX-view-program-selection)
+      (cons '(output-pdf "eclient") '()))))
+```
+
+Now, compiling the latex document and viewing it opens up the pdf in an emacs buffer as below.
+
+{{eclient.gif}}
+
+The final step in viewing the output is to autoreload after compiling the TeX file. Usually the way to view the changes is to hit `C-c C-c` to compile the TeX file and follow it up with `C-c C-c`. I wanted an auto-reload mechanism and this was provided by `auto-revert` mode which detects changes in a file and reloads it in the buffer. I added it as a hook to `'doc-view-mode`:
+
+```
+(add-hook 'doc-view-mode-hook 'auto-revert-mode)
+```
+
+And with that, we have a minimal AUCTeX config for making the typing experience in LaTeX a little faster and viewing output files from within Emacs! 
