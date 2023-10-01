@@ -1,7 +1,7 @@
 created: 20230920225150626
-modified: 20230920231918710
-tags: PL
+modified: 20231001233228066
+tags: PL draft
 title: Type Safety
 type: text/vnd.tiddlywiki
 
-Type safety is a term heard often with regards to programming languages. Recently, I came to understand what it actually means
+For some programmers, type safety in a programming language is non-negotiable. And it should be, because programming in a language that does not guarantee type safety can be annoyingType safety is a term heard often with regards to programming languages. Recently, I came to understand what it actually means. 
