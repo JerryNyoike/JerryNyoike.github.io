@@ -1,7 +1,24 @@
 created: 20230920225150626
-modified: 20231001233228066
+modified: 20231021012801256
 tags: PL draft
 title: Type Safety
 type: text/vnd.tiddlywiki
 
-For some programmers, type safety in a programming language is non-negotiable. And it should be, because programming in a language that does not guarantee type safety can be annoyingType safety is a term heard often with regards to programming languages. Recently, I came to understand what it actually means. 
+Imagine buying a carton of milk at the store and keeping it in your fridge. Later at night, when you can't sleep you decide do have a warm glass of milk to soothe yourself but when you open up the carton and pour a glass, alas! The milk carton did not contain milk but coffee. Now you're both grumpy and can't sleep. Bummer.
+
+When using programming languages without guarantees around type safety, a programmer can find themselves in a similar surprising situation. For example, if an expression `e` is of type integer and it evaluates to a different expression `e_2`, we would in general want the expression `e_2` to have the same type that `e` had. If the expression 2 * 2 has int, if the result of this multiplication had type string, it might cause us to ask hard questions like why did I become a programmer?
+
+In programming language theory, the property the property that describes programs with proper and expected types is type safety.
+
+I define a simple language of natural numbers we can use to explore the idea of type safety.
+
+```
+Terms t, s ::= t | succ v | z 
+             | gte t s 
+```
+
+Next, I define evaluation rules to define the behaviour of the terms in our language:
+
+```
+
+```

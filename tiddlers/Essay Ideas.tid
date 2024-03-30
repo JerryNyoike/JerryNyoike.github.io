@@ -1,0 +1,18 @@
+created: 20240308030819931
+modified: 20240308042015630
+tags: draft ideas
+title: Essay Ideas
+type: text/vnd.tiddlywiki
+
+Some topics I would like to write about in future.
+
+* Operator precedence of logic operators (why aren't they the same)
+* Continuations
+* Ocaml Modules
+* Functors
+* Turing machines / turing completeness
+* Monads
+* A series on implementing a programming language in OCaml
+* Series on little languages (inspired by SICP)
+* Compiler optimizations
+* Things I learn after reading through compiler codebases
