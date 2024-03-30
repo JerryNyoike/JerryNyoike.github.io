@@ -177,6 +177,8 @@ Error message and password prompt
 
 <li>$:/state/tab-2065006209</li>
 
+<li>$:/state/tab/sidebar--595412856</li>
+
 <li>$:/status/IsAnonymous</li>
 
 <li>$:/status/IsLoggedIn</li>
@@ -223,6 +225,8 @@ Error message and password prompt
 
 <li>ShortEssays</li>
 
+<li>Test Tiddler</li>
+
 <li>Type Safety</li>
 
 </ul>
@@ -251,11 +255,11 @@ Error message and password prompt
 
 {"title":"$:/DefaultTiddlers","created":"20230920224150635","modified":"20230922001329807","type":"text/vnd.tiddlywiki","text":"[[Jerry's Short Essays]]","revision":"0","bag":"default"},
 
-{"created":"20240330012207090","title":"$:/GitHub/Filename","text":"index.html","modified":"20240330012208698","revision":"10","bag":"default"},
+{"title":"$:/GitHub/Filename","created":"20240330012207090","modified":"20240330012208698","type":"text/vnd.tiddlywiki","text":"index.html","revision":"0","bag":"default"},
 
-{"created":"20240330012036068","title":"$:/GitHub/Repo","text":"JerryNyoike/JerryNyoike.github.io","modified":"20240330012044161","revision":"33","bag":"default"},
+{"title":"$:/GitHub/Repo","created":"20240330012036068","modified":"20240330012044161","type":"text/vnd.tiddlywiki","text":"JerryNyoike/JerryNyoike.github.io","revision":"0","bag":"default"},
 
-{"created":"20240330012026130","title":"$:/GitHub/Username","text":"JerryNyoike","modified":"20240330012028000","revision":"11","bag":"default"},
+{"title":"$:/GitHub/Username","created":"20240330012026130","modified":"20240330012028000","type":"text/vnd.tiddlywiki","text":"JerryNyoike","revision":"0","bag":"default"},
 
 {"title":"$:/Import","status":"complete","type":"text/vnd.tiddlywiki","text":"The following tiddlers were imported:\n\n# [[auto.gif]]","revision":"0","bag":"default"},
 
@@ -271,9 +275,11 @@ Error message and password prompt
 
 {"title":"$:/state/http-requests","text":"0","revision":"1","bag":"default"},
 
-{"created":"20240330012020211","title":"$:/state/tab-1749438307","text":"$:/core/ui/ControlPanel/Saving","modified":"20240330012020211","revision":"1","bag":"default"},
+{"created":"20240330013811252","title":"$:/state/tab-1749438307","text":"$:/core/ui/ControlPanel/Saving","modified":"20240330013811252","revision":"1","bag":"default"},
 
-{"created":"20240330012023828","title":"$:/state/tab-2065006209","text":"$:/core/ui/ControlPanel/Saving/GitHub","modified":"20240330012023828","revision":"1","bag":"default"},
+{"created":"20240330013813381","title":"$:/state/tab-2065006209","text":"$:/core/ui/ControlPanel/Saving/GitHub","modified":"20240330013813381","revision":"1","bag":"default"},
+
+{"created":"20240330013802492","title":"$:/state/tab/sidebar--595412856","text":"$:/core/ui/SideBar/Recent","modified":"20240330013802493","revision":"1","bag":"default"},
 
 {"title":"$:/status/IsAnonymous","text":"yes","revision":"1","bag":"default"},
 
@@ -285,7 +291,7 @@ Error message and password prompt
 
 {"title":"$:/status/UserName","text":"","revision":"1","bag":"default"},
 
-{"created":"20240330011951843","title":"$:/StoryList","text":"","list":"[[Jerry's Short Essays]] $:/ControlPanel","modified":"20240330011951843","revision":"2","bag":"default"},
+{"created":"20240330013805183","title":"$:/StoryList","text":"","list":"[[Jerry's Short Essays]] $:/ControlPanel","modified":"20240330013808682","revision":"4","bag":"default"},
 
 {"title":"$:/theme","created":"20230921001426876","modified":"20230921001433240","type":"text/vnd.tiddlywiki","text":"$:/themes/tiddlywiki/snowwhite","revision":"0","bag":"default"},
 
@@ -320,6 +326,8 @@ Error message and password prompt
 {"title":"My minimal Emacs + Auctex Setup","created":"20230927011742923","modified":"20230930034823467","tags":"emacs release","type":"text/vnd.tiddlywiki","text":"Lately, I have found myself working with LaTeX often. Previously, I always resorted to using Overleaf or some other tool to edit my .tex files. I am looking to move my workflow to be more Emacs-centric. I made a few edits to my emacs configuration to make it easier to work with the files.\n\n!! Electric Mode\nThe most immediate thing I was looking at was customizations to make writing TeX files easier. The AUCTeX environment is great for that! First up, was to set up electric mode to make it easier to enter math mode. \n\n```\n(add-hook 'LaTeX-mode-hook \n  (lambda \n    ()\n    (set \n      (make-local-variable 'TeX-electric-math) \n      (cons \"\\\\(\" \"\\\\)\")))))\n```\n\nThis turns on electric math mode, so that when you type `$` emacs writes the inline math mode delimiters `\\(\\)` and places the cursor inside the delimiters.\n\nOther than electric math mode, I also added support for electric mode for square brackets, curly brackets and regular brackets. The behaviour whenever any of these braces is typed is similar to electric math mode.\n\n```\n(add-hook 'LaTeX-mode-hook\n  (lambda \n    ()\n    (set \n      (make-local-variable 'LaTeX-electric-left-right-brace) \n       t)))\n```\n\nIn case you want to type in just the opening bracket while `LaTeX-electric-right-left-braces` is on, use the keybinding `C-q` before typing in the brace.\n\nThe last electric autocompletion, I chose to take advantage of was when typing superscripts and subscripts in math mode. By setting `TeX-electric-sub-and-superscript` to true, whenever I type in `^` or `_` in math mode, AUCTeX adds curly braces automatically saving me a few extra keystrokes.\n\n```\n(add-hook 'LaTeX-mode-hook\n  (lambda \n    () (set \n          (make-local-variable TeX-electric-sub-and-superscript) t)))\n```\n\n{{braces.gif}}\n\n!! Compiling with LaTeX and Live Preview on Save\n\nAUCTeX allows you to run processing commands from within emacs. I am a fan of using `TeX-command-master` (which is bound to `C-c C-c`). This command prompts you to enter which LaTeX command you want to run on the current file. If the file was recently edited, the command `LaTeX` will be highlighted by default and this would compile your TeX file to produce a pdf. If you recently compiled the TeX file from within Emacs, the `View` command will be highlighted. If selected, `View` opens the output using your default system viewer for the file. \n\nNaturally, I wanted this to be Emacs ever since I found out it's possible to view pdfs within Emacs (seriously what can't Emacs do!!).  In true Emacs, fashion it was possible to change AUCTeX defaults for which program to use to view the output.\n\nAUCTeX provides a variable 'TeX-view-program-list which is a list of programs to use to open output from LaTeX. Using `emacsclient` I was able to change which program should open my pdf files.\n\n```\n(add-hook 'LaTeX-mode-hook\n  (lambda ()\n    (set \n      (make-local-variable 'TeX-program-view-list)\n      (cons '(\"eclient\" \"emacsclient -n -e '(find-file-other-window \\\"%o\\\")' -e '(doc-view-fit-window-to-page)' -e '(doc-view-last-page)' -e '(other-window 1)') '()))))\n```\n\nLet's break the value stored in `'TeX-program-view-list` down. `cons` means the value is a list. Each element of the list is a list of 2 strings. The first string represents the human readable name of the viewer and the second string is the command to run to open the viewer.\n\nTo make Emacs available as one of the viewers, we need to edit another variable `'TeX-view-program-selection`. This variable also holds a list of lists representing the kind of output and the viewer to use for that output. The goal here is to have `eclient` that I defined in the previous step show up in the options for viewing pdf output. This is achieved with the following:\n\n```\n(add-hook 'LaTeX-mode-hook\n  (lambda \n    ()\n    (set (make-local-variable 'TeX-view-program-selection)\n      (cons '(output-pdf \"eclient\") '()))))\n```\n\nNow, compiling the latex document and viewing it opens up the pdf in an emacs buffer as below.\n\n{{eclient.gif}}\n\nThe final step in viewing the output is to autoreload after compiling the TeX file. Usually the way to view the changes is to hit `C-c C-c` to compile the TeX file and follow it up with `C-c C-c`. I wanted an auto-reload mechanism and this was provided by `auto-revert` mode which detects changes in a file and reloads it in the buffer. I added it as a hook to `'doc-view-mode`:\n\n```\n(add-hook 'doc-view-mode-hook 'auto-revert-mode)\n```\n\nAnd with that, we have a minimal AUCTeX config for making the typing experience in LaTeX a little faster and viewing output files from within Emacs! ","revision":"0","bag":"default"},
 
 {"title":"ShortEssays","created":"20230921014028145","modified":"20230921014038425","type":"text/vnd.tiddlywiki","revision":"0","bag":"default"},
+
+{"title":"Test Tiddler","created":"20240330012328268","modified":"20240330012334662","tags":"draft","type":"text/vnd.tiddlywiki","revision":"0","bag":"default"},
 
 {"title":"Type Safety","created":"20230920225150626","modified":"20231021012801256","tags":"PL draft","type":"text/vnd.tiddlywiki","text":"Imagine buying a carton of milk at the store and keeping it in your fridge. Later at night, when you can't sleep you decide do have a warm glass of milk to soothe yourself but when you open up the carton and pour a glass, alas! The milk carton did not contain milk but coffee. Now you're both grumpy and can't sleep. Bummer.\n\nWhen using programming languages without guarantees around type safety, a programmer can find themselves in a similar surprising situation. For example, if an expression `e` is of type integer and it evaluates to a different expression `e_2`, we would in general want the expression `e_2` to have the same type that `e` had. If the expression 2 * 2 has int, if the result of this multiplication had type string, it might cause us to ask hard questions like why did I become a programmer?\n\nIn programming language theory, the property the property that describes programs with proper and expected types is type safety.\n\nI define a simple language of natural numbers we can use to explore the idea of type safety.\n\n```\nTerms t, s ::= t | succ v | z \n             | gte t s \n```\n\nNext, I define evaluation rules to define the behaviour of the terms in our language:\n\n```\n\n```","revision":"0","bag":"default"}
 ]</script><div id="storeArea" style="display:none;"></div>
